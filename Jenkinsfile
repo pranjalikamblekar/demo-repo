@@ -13,9 +13,23 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                echo 'Testing'
-                input('Do you want to proceed? ')
+            parallel {
+                stage('Unit Tesing') {
+                    steps {
+                        echo 'Running the unit test..'
+                    }
+                }
+                stage('Integration Testing') {
+                    agent {
+                        docker {
+                            reuseNode false
+                            image 'ubuntu'
+                        }
+                    }
+                    steps {
+                        echo 'Riining tentegration test..'
+                    }
+                }
             }
         }
         stage('No Main') {
