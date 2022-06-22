@@ -13,14 +13,28 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                echo 'Testing'
-                input('Do you want to proceed? ')
+            parallel {
+                stage('Unit Tesing') {
+                    steps {
+                        echo 'Running the unit test..'
+                    }
+                }
+                stage('Integration Testing') {
+                    agent any
+                    steps {
+                        echo 'Runing integration test..'
+                    }
+                }
             }
         }
-        stage('Deploying') {
+        stage('No Main') {
+            when {
+                not {
+                    branch "main"
+                }
+            }
             steps {
-                echo 'Deploying'
+                echo 'On the testing branch!'
             }
         }
     }
