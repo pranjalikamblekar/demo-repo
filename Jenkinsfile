@@ -18,9 +18,14 @@ pipeline {
                 input('Do you want to proceed? ')
             }
         }
-        stage('Deploying') {
+        stage('No Main') {
+            when {
+                not {
+                    branch "main"
+                }
+            }
             steps {
-                echo 'Deploying'
+                echo 'On the testing branch!'
             }
         }
     }
