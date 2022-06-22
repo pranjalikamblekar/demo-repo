@@ -27,15 +27,5 @@ pipeline {
                 }
             }
         }
-        stage('No Main') {
-            when {
-                not {
-                    branch "main"
-                }
-            }
-            steps {
-                echo 'On the testing branch!'
-            }
-        }
     }
 }
